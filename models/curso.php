@@ -15,4 +15,5 @@ Class Curso{
     public $enviarCorreo;
     public $firmaTrabajador;
     public $idRegistro;
+    public $horasCapacitadas;
 }

@@ -1003,10 +1003,10 @@ $pdf->MultiCell(280, 8, utf8_decode($curso->cargoTrabajador),0, 'C', false);
         $pdf->SetFont('Helvetica', 'B', 11);
         $pdf->MultiCell(180, 8, utf8_decode('
 Según lo establecido:
-DECRETO SUPREMO N° 024 -2016-EM
-Anexo N°4 : INDUCCION Y ORIENTACION BASICA
-Anexo N°5 : PROGRAMA DE CAPACITACIÓN ESPECIFICA EN EL ÁREA DE TRABAJO
-'), 0, 'L', false);
+DECRETO SUPREMO N° 024 -2016-EM'), 0, 'L', false);
+
+        $pdf->MultiCell(180, 8, utf8_decode('                   '.$curso->temaExamen.' - '.$curso->horasCapacitadas.' hora(s)'), 0, 'L', false);
+
 
         $pdf->Image('firmas/'.$curso->firmaTrabajador, 30 , 145, 70, 30);
         $pdf->SetXY(30, 160);
@@ -1053,7 +1053,7 @@ Anexo N°5 : PROGRAMA DE CAPACITACIÓN ESPECIFICA EN EL ÁREA DE TRABAJO
         if (file_exists($filename)) {
             return $filename;
         } else {
-            return 0;
+            return "wrong";
         }
     }
 }

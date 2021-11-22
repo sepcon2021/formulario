@@ -2,6 +2,7 @@
 
 require_once 'public/PHPMailer/PHPMailerAutoload.php';
 require_once 'public/generate-pdf/generatepdf.php';
+require_once 'config/config.php';
 
 class Email{
 
@@ -30,8 +31,6 @@ class Email{
     }
 
     public function settingEmail($destino){
-
-       
         $origen = "ssma@sepcon.net";
         $remitente = "fichas@sepcon.net";
 
@@ -50,14 +49,13 @@ class Email{
             ),
         );
         $mail->SMTPAuth = true;
-        $mail->Username = "documentos_ssma@sepcon.net";
-        $mail->Password = "m5Nk0Df3";
+        $mail->Username = constant('CORREO');
+        $mail->Password = constant('CONTRASEÑA_CORREO');
 
         $mail->setFrom($origen, $remitente);
         $mail->addAddress($destino, $destino);
 
         return $mail;
-
     }
  
     public function selectUsersToSendEmail($mail,$sede){

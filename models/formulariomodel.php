@@ -24,12 +24,12 @@ class FormularioModel extends Model
             (idProyecto,fase,facilitador,cliente,fecha,duracion,idTipo,tema,horaInicio,
             horaFin,duracionProgramada,duracionEfectiva,idCurso,idAreaCapacitacion,detalle,
             nota,estado,idFirmaFacilitador,observacion,finalizo,continuara,fechaContinuacion,
-            temarioA,temarioB,correo,idareaempresa,cantidadPregunta,aleatorio) VALUE
+            temarioA,temarioB,correo,idareaempresa,cantidadPregunta,aleatorio,horas_capacitadas) VALUE
 
             (:idProyecto,:fase,:facilitador,:cliente,:fecha,:duracion,:idTipo,:tema,:horaInicio,
             :horaFin,:duracionProgramada,:duracionEfectiva,:idCurso,:idAreaCapacitacion,:detalle,
             :nota,:estado,:idFirmaFacilitador,:observacion,:finalizo,:continuara,:fechaContinuacion,
-            :temarioA,:temarioB,:correo,:idareaempresa,:cantidadPregunta,:aleatorio)');
+            :temarioA,:temarioB,:correo,:idareaempresa,:cantidadPregunta,:aleatorio,:horas_capacitadas)');
 
 
 
@@ -62,6 +62,7 @@ class FormularioModel extends Model
                 'idareaempresa' => $examen['idareaempresa'],
                 'cantidadPregunta' => $examen['cantidadPregunta'],
                 'aleatorio' => $examen['aleatorio'],
+                'horas_capacitadas' => $examen['horas_capacitadas']
 
 
 
@@ -632,6 +633,31 @@ class FormularioModel extends Model
     }
 
     
+    public function updateHorasCapacitadas($examen)
+    {
+        try {
+
+            $conexion_bbdd = $this->db->connect();
+
+            $query = $conexion_bbdd->prepare('UPDATE examen 
+                                             SET horas_capacitadas = :horas_capacitadas
+                                                        WHERE id = :id');
+
+            $query->execute([
+                'horas_capacitadas' => $examen['horas_capacitadas'],
+                'id' => $examen['id']
+            ]);
+
+            return true;
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+
+    
     public function findByIdExamen($idExamen)
     {
         try {
@@ -668,7 +694,8 @@ class FormularioModel extends Model
             examen.correo,
             examen.idareaempresa,
             examen.cantidadPregunta,
-            examen.aleatorio
+            examen.aleatorio,
+            examen.horas_capacitadas
             FROM 
             examen INNER JOIN proyecto ON examen.idProyecto = proyecto.id  WHERE examen.id = '$idExamen' ");
 
@@ -708,6 +735,7 @@ class FormularioModel extends Model
 
                 $examen->cantidadPregunta = $row['cantidadPregunta'];
                 $examen->aleatorio = $row['aleatorio'];
+                $examen->horasCapacitadas = $row['horas_capacitadas'];
 
                 $examen->listaPreguntas=$this->listaPreguntas($row['id']);   
                 $examen->examenPuestoTrabajo = $this->getListExamenPuesto($row['id']);
@@ -1065,7 +1093,6 @@ class FormularioModel extends Model
         try {
             $listaExamenDetalle=array();
 
-
             $query = $this->db->connect()->query("SELECT 
             DISTINCT(tipo) AS tipo, 
             id,
@@ -1073,8 +1100,8 @@ class FormularioModel extends Model
             fecha
             
             FROM 
-            examenDetalle WHERE estado = 1 AND idproyecto = '$codigo' AND idareaempresa = '$idAreaEmpresa' ORDER BY registro DESC");
-
+            examenAdministrador WHERE estado = 1 AND idproyecto = '$codigo' AND idareaempresa = '$idAreaEmpresa' ORDER BY registro DESC");
+ 
             while($row = $query->fetch()){
                 $modelExamenDetalle=new ExamenDetalle;
                 $modelExamenDetalle->id=$row['id'];

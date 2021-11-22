@@ -34,6 +34,7 @@ class Examen{
     public $cantidadPregunta;
     public $aleatorio;
     public $examenPuestoTrabajo;
+    public $horasCapacitadas;
 }
 
 

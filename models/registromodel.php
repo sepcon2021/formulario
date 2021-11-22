@@ -207,6 +207,7 @@ class RegistroModel extends Model
             examen.tema AS tema_examen,
             examen.fecha AS fecha_examen,
             examen.correo AS enviarCorreo,
+            examen.horas_capacitadas AS horasCapacitadas,
             proyecto.nombre AS nombre_proyecto,
             registro.firma AS firma_trabajador,
             registro.id AS idregistro
@@ -234,6 +235,7 @@ class RegistroModel extends Model
                 $curso->enviarCorreo = $row['enviarCorreo'];
                 $curso->firmaTrabajador = $row['firma_trabajador'];
                 $curso->idRegistro = $row['idregistro'];
+                $curso->horasCapacitadas = $row['horasCapacitadas'];
 
             }
 

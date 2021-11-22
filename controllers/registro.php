@@ -25,26 +25,26 @@ class Registro extends Controller
         $idExamen = $registro->idexamen;
         $dni = $registro->dni;
         $idarea = $registro->idarea;
-        //$respuestaTemperatura = $registro->respuestaTemperatura;
-        //$respuestaTemperaturaHoy = $registro->respuestaTemperaturaHoy;
-
         $nota = $registro->nota;
-        //$comentario = $registro->comentario;
         $firma = $registro->firma;
         $listaRespuestas = $registro->listaRespuestas;
 
-        //$datos = compact("idExamen", "dni", "idarea","respuestaTemperatura","respuestaTemperaturaHoy", "nota", "comentario", "firma");
         $datos = compact("idExamen", "dni", "idarea", "nota", "firma");
 
         $idRegistro = $this->model->insertResgistro($datos);
-
         $respuesta=$this->model->insertRespuesta($listaRespuestas,$idRegistro);
 
-        //Enviar el certificado del trabajador en caso apruebe el examen
         $this->enviarCertificado($idExamen,$dni);
 
         echo $this->responseMessage($respuesta);
 
+    }
+
+    public function enviarPrueba(){
+        $idExamen = $_POST['idExamen'];
+        $dni = $_POST['dni'];
+
+        $this->enviarCertificado($idExamen,$dni);
     }
 
 

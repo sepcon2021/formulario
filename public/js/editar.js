@@ -459,6 +459,25 @@ $(function () {
             }, "json");
     
         });
+
+        $('#horas_capacitadas').donetyping(function () {
+    
+            var horas_capacitadas = $('#horas_capacitadas').val();
+
+            console.log('HORAS CAPACITADAS');
+            console.log(horas_capacitadas);
+    
+    
+            $.post(RUTA + 'formulario/updateHorasCapacitadas', { horas_capacitadas :horas_capacitadas , id: IDEXAMENEDITAR }, function (data, textStatus, xhr) {
+    
+                if (data.status == 200) {
+                    console.log(data.contenido);
+                }
+    
+            }, "json");
+    
+        });
+
     
     }
 
@@ -686,6 +705,13 @@ $(function () {
             <button class="buttonAdd" id="addRowObs">Agregar firma </button>
 
         </div>
+
+        <div class="campo">
+
+        <label>Cantidad de horas capacitadas</label>
+        <input type="text" name="horas_capacitadas" id="horas_capacitadas" value="${examen.horasCapacitadas}">
+        </div>
+
 
 
 

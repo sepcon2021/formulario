@@ -73,6 +73,7 @@ class Formulario extends Controller
         $idareaempresa = $idAreaEmpresa;
         $cantidadPregunta = 1000;
         $aleatorio = 0;
+        $horas_capacitadas = 0;
 
 
         $datos = compact(
@@ -102,7 +103,8 @@ class Formulario extends Controller
             "temarioB",
             "idareaempresa",
             "cantidadPregunta",
-            "aleatorio"
+            "aleatorio",
+            "horas_capacitadas"
         );
 
         $respuesta = $this->model->insertExamen($datos);
@@ -435,6 +437,20 @@ class Formulario extends Controller
 
         echo $this->responseMessage($respuesta);
     }
+
+    public function updateHorasCapacitadas()
+    {
+
+        $id = $_POST['id'];
+        $horas_capacitadas = $_POST['horas_capacitadas'];
+
+        $datos = compact("id", "horas_capacitadas");
+
+        $respuesta = $this->model->updateHorasCapacitadas($datos);
+
+        echo $this->responseMessage($respuesta);
+    }
+
 
     //INSERTAMOS LA PREGUNTA
     public function insertPregunta()
