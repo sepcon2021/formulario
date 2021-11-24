@@ -1865,7 +1865,7 @@ function autocomplete(inp, arr) {
                 b.innerHTML = "<strong>" + arr[i][0] + " - "+ arr[i][1].substr(0, val.length) + "</strong>";
                 b.innerHTML += arr[i][1].substr(val.length);
                 /*insert a input field that will hold the current array item's value:*/
-                b.innerHTML += "<input type='hidden' value='" + (arr[i][0]+arr[i][1]) + "'  idcargo='" + arr[i][0] + "'>";
+                b.innerHTML += "<input type='hidden' value='" + (arr[i][0]+ " - "+arr[i][1]) + "'  idcargo='" + arr[i][0] + "'>";
 
 
                 /*execute a function when someone clicks on the item value (DIV element):*/
