@@ -31,6 +31,7 @@ class Main extends Controller
                 "dni" => $usuarioTrabajador['dni'],
                 "apellidos" => $usuarioTrabajador['apellidos'],
                 "nombres" => $usuarioTrabajador['nombres'],
+                "ccargo" => $usuarioTrabajador['ccargo'],
                 "dcargo" => $usuarioTrabajador['dcargo'],
                 "ccostos" => $usuarioTrabajador['ccostos'],
                 "dcostos" => $usuarioTrabajador['dcostos'],

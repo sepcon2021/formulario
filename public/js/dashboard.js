@@ -2,6 +2,11 @@ $(function() {
 
     const CODIGO_PROYECTO = sessionStorage.getItem('codigoproyecto');
     const CARGO_TRABAJADOR = sessionStorage.getItem('cargoTrabajador');
+    const CODIGO_TRABAJADOR = sessionStorage.getItem('codigoTrabajador');
+
+
+    console.log('CODIGO TRABAJADOR');
+    console.log(CODIGO_TRABAJADOR);
     contenidoEstatico();
 
     function contenidoEstatico() {
@@ -23,7 +28,7 @@ $(function() {
 
     // Mostrar todas las capacitaciones
 
-    $.post(RUTA + 'dashboard/listaExamenByFecha', {'codigoproyecto': CODIGO_PROYECTO , 'cargoTrabajador' : CARGO_TRABAJADOR}, function(data, textStatus, xhr) {
+    $.post(RUTA + 'dashboard/listaExamenByFecha', {'codigoproyecto': CODIGO_PROYECTO , 'codigoTrabajador' : CODIGO_TRABAJADOR}, function(data, textStatus, xhr) {
 
         var tablaExamenes = "";
 

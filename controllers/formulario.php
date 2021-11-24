@@ -939,6 +939,15 @@ class Formulario extends Controller
 
     }
 
+
+    public function getListPuesto(){
+
+        $resultado = $this->model->getListPuesto();
+        echo $this->responseMessageContenido($resultado);
+
+
+    }
+
     
     public function deleteExamenPuesto()
     {

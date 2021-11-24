@@ -20,6 +20,7 @@
                                                                 dni,
                                                                 apellidos,
                                                                 nombres,
+                                                                ccargo,
                                                                 dcargo,
                                                                 ccostos,
                                                                 dcostos

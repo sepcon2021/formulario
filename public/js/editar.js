@@ -48,6 +48,9 @@
 $(function () {
 
 
+    var lista_puestos = [];
+
+
     var IDEXAMENEDITAR = sessionStorage.getItem('idExamenEditar');
     const IDAREA_EMPRESA = sessionStorage.getItem('idAreaEmpresa');
 
@@ -512,7 +515,25 @@ $(function () {
 
             listenContenidoCabecera();
 
-            autocomplete(document.getElementById("observado_puesto"), countries);
+
+            $.post(RUTA + 'formulario/getListPuesto', { idExamen: IDEXAMENEDITAR }, function (data, textStatus, xhr) {
+
+                if (data.status == 200) {
+                    lista = data.contenido;
+
+                    lista.forEach((elemento)=> {
+                        lista_puestos.push([elemento.id,elemento.nombre]);                        
+                    });
+
+                    console.log(lista_puestos);
+
+                    autocomplete(document.getElementById("observado_puesto"), lista_puestos);
+
+                }
+        
+        
+            }, "json");
+
 
             //Puestos de trabajo
             htmlListaPuestoTrabajo(data.contenido);
@@ -743,7 +764,7 @@ $(function () {
         <div class="campo">
 
         <label>Asignar por puesto de trabajo</label>
-        <input type="text" name="observado_puesto" id="observado_puesto" class="w95p">
+        <input type="text" name="observado_puesto" id="observado_puesto" class="w95p" autocomplete="off">
         </div>
 
         <div class="campo">
@@ -764,7 +785,7 @@ $(function () {
             var htmlLista = `
             <div class="puestoTrabajoGeneral" id="${IDEXAMENEDITAR}${puestoTrabajo.id_puesto_trabajo}">
                 <div class="puestoTrabajo">
-                    <p> ${puestoTrabajo.nombre}</p>
+                    <p> ${puestoTrabajo.id_puesto_trabajo} - ${puestoTrabajo.nombre}</p>
                     <img class="iconoEliminarPuestoTrabajo" src="public/img/cancel.png">
                 </div>
             </div>
@@ -1841,10 +1862,10 @@ function autocomplete(inp, arr) {
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
                 /*make the matching letters bold:*/
-                b.innerHTML = "<strong>" + arr[i][1].substr(0, val.length) + "</strong>";
+                b.innerHTML = "<strong>" + arr[i][0] + " - "+ arr[i][1].substr(0, val.length) + "</strong>";
                 b.innerHTML += arr[i][1].substr(val.length);
                 /*insert a input field that will hold the current array item's value:*/
-                b.innerHTML += "<input type='hidden' value='" + arr[i][1] + "'  idcargo='" + arr[i][0] + "'>";
+                b.innerHTML += "<input type='hidden' value='" + (arr[i][0]+arr[i][1]) + "'  idcargo='" + arr[i][0] + "'>";
 
 
                 /*execute a function when someone clicks on the item value (DIV element):*/
@@ -1941,7 +1962,7 @@ function autocomplete(inp, arr) {
     });
 }
 
-
+/*
 var countries = [
     [1,'Oficial Fierrero'],
     [2,'Operario Fierrero'],
@@ -2178,6 +2199,6 @@ var countries = [
     [233,'Operario Electricista de Mantenimiento de Equipo - B'],
     [234,'Ingeniería y Topografía'],
 ];
-
+*/
 });
 

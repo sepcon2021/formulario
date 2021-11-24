@@ -1585,6 +1585,39 @@ class FormularioModel extends Model
         }
     }
 
+
+    public function getListPuesto()
+    {
+
+        $listExamenPuestoTrabajo = array();
+
+        try {
+
+            $query = $this->db->connect()->prepare("SELECT id,nombre FROM puesto_trabajo 
+            ");
+
+            $query->execute();
+            
+            while($row = $query->fetch()){
+
+                $examenPuestoTrabajo = array(
+                    "id" => $row['id'],
+                    "nombre" => $row['nombre']
+                );
+
+                array_push($listExamenPuestoTrabajo,$examenPuestoTrabajo);
+            }
+
+
+            return $listExamenPuestoTrabajo;
+
+        } catch (PDOexception $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+
     public function deleteExamenPuesto($datos)
     {
         try {

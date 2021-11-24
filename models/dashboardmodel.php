@@ -23,7 +23,7 @@ class DashboardModel extends Model
 
             
             $codigoproyecto = $data['codigoproyecto'];
-            $cargoTrabajador = $data['cargoTrabajador'];
+            $codigoTrabajador = $data['codigoTrabajador'];
 
             $query = $this->db->connect()->query("SELECT
             DISTINCT(tipo) AS tipo, 
@@ -33,8 +33,7 @@ class DashboardModel extends Model
             areaEmpresa,nombre_trabajo,notaExamen
             
             FROM 
-            examenDetalle   WHERE  estado = 1 AND idproyecto = '$codigoproyecto' AND nombre_trabajo = '$cargoTrabajador' ORDER BY fecha ASC");
-
+            examenDetalle   WHERE  estado = 1 AND idproyecto = '$codigoproyecto' AND id_puesto_trabajo = '$codigoTrabajador' ORDER BY fecha ASC");
 
             while($row = $query->fetch()){
                 $modelExamenDetalle=new ExamenDetalle;

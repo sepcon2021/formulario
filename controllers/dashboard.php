@@ -18,9 +18,9 @@ class Dashboard extends Controller
     {
 
         $codigoproyecto = $_POST['codigoproyecto'];
-        $cargoTrabajador = $_POST['cargoTrabajador'];
+        $codigoTrabajador = $_POST['codigoTrabajador'];
 
-        $data = compact('codigoproyecto' , 'cargoTrabajador');
+        $data = compact('codigoproyecto' , 'codigoTrabajador');
 
         $respuesta = $this->model->listaExamenByFecha($data);
 

@@ -32,6 +32,7 @@ $(function() {
                         //Guardamos los datos devueltos por la consulta
                         sessionStorage.setItem("dniTrabajador", data.respuesta.dni);
                         sessionStorage.setItem("nombresApellidosTrabajador", data.respuesta.nombres + " " + data.respuesta.apellidos);
+                        sessionStorage.setItem("codigoTrabajador", data.respuesta.ccargo);
                         sessionStorage.setItem("cargoTrabajador", data.respuesta.dcargo);
                         //sessionStorage.setItem("codigoproyecto", data.respuesta.ccostos);
                         sessionStorage.setItem("codigoproyecto", codigoProyecto);
