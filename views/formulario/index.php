@@ -318,7 +318,7 @@
     <script src="<?php echo constant('URL'); ?>public/js/jquery.js"></script>
     <script src="<?php echo constant('URL'); ?>public/js/firma.js"></script>
     <script src="<?php echo constant('URL'); ?>public/js/firmaMovil.js"></script>
-    <script src="<?php echo constant('URL'); ?>public/js/funciones.js?v1.0.12"></script>
+    <script src="<?php echo constant('URL'); ?>public/js/funciones.js?<?php echo constant('VERSION'); ?>"></script>
     <script src="<?php echo constant('URL'); ?>public/js/formulario.js?<?php echo constant('VERSION'); ?>"></script>
 
 

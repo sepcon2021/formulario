@@ -45,7 +45,7 @@
 
 
     <script src="<?php echo constant('URL'); ?>public/js/jquery.js"></script>
-    <script src="<?php echo constant('URL'); ?>public/js/funciones.js"></script>
+    <script src="<?php echo constant('URL'); ?>public/js/funciones.js?<?php echo constant('VERSION'); ?>"></script>
     <script src="<?php echo constant('URL'); ?>public/js/inicio.js?<?php echo constant('VERSION'); ?>"></script>
 
 </body>
