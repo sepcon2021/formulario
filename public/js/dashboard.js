@@ -28,7 +28,7 @@ $(function() {
 
     // Mostrar todas las capacitaciones
 
-    $.post(RUTA + 'dashboard/listaExamenByFecha', {'codigoproyecto': CODIGO_PROYECTO , 'codigoTrabajador' : CODIGO_TRABAJADOR}, function(data, textStatus, xhr) {
+    $.post(RUTA + 'dashboard/listaExamenByFecha', {'codigoproyecto': CODIGO_PROYECTO , 'codigoTrabajador' : CARGO_TRABAJADOR}, function(data, textStatus, xhr) {
 
         var tablaExamenes = "";
 
