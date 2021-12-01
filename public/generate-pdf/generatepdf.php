@@ -1017,7 +1017,7 @@ DECRETO SUPREMO N° 024 -2016-EM'), 0, 'L', false);
         Firma del trabajador'), 0, 'C', false);
 
         
-        $pdf->Image('firmas/'.$curso->firmaTrabajador, 100, 145, 70, 30);
+        $pdf->Image('firmas/ingenierosupervisor.jpeg', 100, 145, 70, 30);
         $pdf->SetXY(100, 160);
         $pdf->SetFont('Helvetica', '', 10);
         $pdf -> Line(110, 170, 160, 170);
@@ -1026,13 +1026,13 @@ DECRETO SUPREMO N° 024 -2016-EM'), 0, 'L', false);
         Responsable de la tarea'), 0, 'C', false);
 
 
-        $pdf->Image('firmas/'.$curso->firmaTrabajador, 200 , 145, 70, 30);
+        $pdf->Image('firmas/jefeseguridad.jpeg', 200 , 145, 70, 30);
         $pdf->SetXY(200, 160);
         $pdf->SetFont('Helvetica', '', 10);
         $pdf -> Line(210, 170, 270, 170);
         $pdf->MultiCell(80, 8, utf8_decode('
         Jefe de seguridad
-        V°B° ING. Víctor Delgado Céspedes'), 0, 'C', false);
+        V°B° ING. Rafael Andrade Carpio'), 0, 'C', false);
 
 
         //Marco del certificado

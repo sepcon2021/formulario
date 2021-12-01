@@ -1624,7 +1624,7 @@ class FormularioModel extends Model
 
             $conexion_bbdd = $this->db->connect();
 
-            $query = $conexion_bbdd->prepare('DELETE FROM  form.examen_puesto_trabajo 
+            $query = $conexion_bbdd->prepare('DELETE FROM  formulario.examen_puesto_trabajo 
             WHERE id_examen = :id_examen AND id_puesto_trabajo = :id_puesto_trabajo');
 
             $query->execute([

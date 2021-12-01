@@ -127,17 +127,17 @@ class EvaluacionesModel extends Model
         try {
             $query = $this->db->connect()->query("SELECT 
 
-            form.registro.id,
+            formulario.registro.id,
             CONCAT(rrhh.tabla_aquarius.nombres,' ',rrhh.tabla_aquarius.apellidos) AS nombresApellidos ,
             rrhh.tabla_aquarius.dcargo AS cargoTrabajador ,
-            form.registro.dni,
-            form.registro.firma  AS firma     
+            formulario.registro.dni,
+            formulario.registro.firma  AS firma     
    
             FROM 
    
-            form.registro INNER JOIN rrhh.tabla_aquarius ON form.registro.dni=rrhh.tabla_aquarius.dni
+            formulario.registro INNER JOIN rrhh.tabla_aquarius ON formulario.registro.dni=rrhh.tabla_aquarius.dni
    
-            WHERE form.registro.idExamen=$idExamen ");
+            WHERE formulario.registro.idExamen=$idExamen ");
 
             while ($row = $query->fetch()) {
 
@@ -175,21 +175,21 @@ class EvaluacionesModel extends Model
         try {
             $query = $this->db->connect()->query("SELECT 
 
-            form.registro.id,
-            form.registro.dni,
+            formulario.registro.id,
+            formulario.registro.dni,
             CONCAT(rrhh.tabla_aquarius.nombres,' ',rrhh.tabla_aquarius.apellidos) AS nombresApellidos ,
             rrhh.tabla_aquarius.dcargo AS cargoTrabajador ,
-            form.registro.respuestaTemperatura,
-            form.registro.respuestaTemperaturaHoy,
-            form.registro.comentario,
-            form.registro.nota,
-            form.registro.firma  AS firma     
+            formulario.registro.respuestaTemperatura,
+            formulario.registro.respuestaTemperaturaHoy,
+            formulario.registro.comentario,
+            formulario.registro.nota,
+            formulario.registro.firma  AS firma     
    
             FROM 
    
-            form.registro INNER JOIN rrhh.tabla_aquarius ON form.registro.dni=rrhh.tabla_aquarius.dni
+            formulario.registro INNER JOIN rrhh.tabla_aquarius ON formulario.registro.dni=rrhh.tabla_aquarius.dni
    
-            WHERE form.registro.idExamen=$idExamen ");
+            WHERE formulario.registro.idExamen=$idExamen ");
 
             while ($row = $query->fetch()) {
 
@@ -371,12 +371,12 @@ class EvaluacionesModel extends Model
             rrhh.tabla_aquarius.dni,
             rrhh.tabla_aquarius.dcargo,
                 rrhh.tabla_aquarius.dcostos,
-            if(formFiltrado.nota IS NOT null , 'Si','No') AS examen,
-            if(formFiltrado.nota IS NOT null , formFiltrado.nota , 'NR' ) AS nota,
-                formFiltrado.fecha,
-                formFiltrado.comentario
+            if(formularioFiltrado.nota IS NOT null , 'Si','No') AS examen,
+            if(formularioFiltrado.nota IS NOT null , formularioFiltrado.nota , 'NR' ) AS nota,
+                formularioFiltrado.fecha,
+                formularioFiltrado.comentario
             
-            FROM  rrhh.tabla_aquarius LEFT JOIN (SELECT * FROM form.registro WHERE form.registro.idExamen = $idExamen) AS formFiltrado ON rrhh.tabla_aquarius.dni = formFiltrado.dni 
+            FROM  rrhh.tabla_aquarius LEFT JOIN (SELECT * FROM formulario.registro WHERE formulario.registro.idExamen = $idExamen) AS formularioFiltrado ON rrhh.tabla_aquarius.dni = formularioFiltrado.dni 
           
           WHERE rrhh.tabla_aquarius.ccostos = '$codigoProyecto' AND rrhh.tabla_aquarius.estado = 'AC'   ORDER BY rrhh.tabla_aquarius.dni DESC ");
 
@@ -410,19 +410,19 @@ class EvaluacionesModel extends Model
 
         try {
             $query = $this->db->connect()->query(" 		SELECT 
-            form.registro.id, 
+            formulario.registro.id, 
             CONCAT(rrhh.tabla_aquarius.nombres,rrhh.tabla_aquarius.apellidos) AS nombres_apellidos,
             rrhh.tabla_aquarius.dni,
             rrhh.tabla_aquarius.dcargo,
                 rrhh.tabla_aquarius.dcostos,
-            if(form.registro.nota IS NOT null , 'Si','No') AS examen,
-            if(form.registro.nota IS NOT null , form.registro.nota , 'NR' ) AS nota,
-                form.registro.fecha,
-                form.registro.comentario
+            if(formulario.registro.nota IS NOT null , 'Si','No') AS examen,
+            if(formulario.registro.nota IS NOT null , formulario.registro.nota , 'NR' ) AS nota,
+                formulario.registro.fecha,
+                formulario.registro.comentario
             
-            FROM  rrhh.tabla_aquarius INNER JOIN  form.registro ON rrhh.tabla_aquarius.dni = form.registro.dni 
+            FROM  rrhh.tabla_aquarius INNER JOIN  formulario.registro ON rrhh.tabla_aquarius.dni = formulario.registro.dni 
           
-          WHERE form.registro.idExamen = $idExamen ");
+          WHERE formulario.registro.idExamen = $idExamen ");
 
             while ($row = $query->fetch()) {
                 $nota = new Nota();
@@ -453,10 +453,10 @@ class EvaluacionesModel extends Model
         $listaPreguntas = array();
 
         try {
-            $query = $this->db->connect()->query("SELECT  form.respuesta.alternativa , form.tipo_pregunta.id AS idTipoPregunta, form.tipo_pregunta.nombre nombreTipoPregunta
-            FROM  form.respuesta INNER JOIN form.pregunta ON form.respuesta.idPregunta = form.pregunta.id
-								INNER JOIN form.tipo_pregunta ON form.pregunta.idtipopregunta = form.tipo_pregunta.id
-            WHERE form.respuesta.idRegistro = $idRegistro ");
+            $query = $this->db->connect()->query("SELECT  formulario.respuesta.alternativa , formulario.tipo_pregunta.id AS idTipoPregunta, formulario.tipo_pregunta.nombre nombreTipoPregunta
+            FROM  formulario.respuesta INNER JOIN formulario.pregunta ON formulario.respuesta.idPregunta = formulario.pregunta.id
+								INNER JOIN formulario.tipo_pregunta ON formulario.pregunta.idtipopregunta = formulario.tipo_pregunta.id
+            WHERE formulario.respuesta.idRegistro = $idRegistro ");
 
             while ($row = $query->fetch()) {
             
