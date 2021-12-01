@@ -21,6 +21,11 @@ class Evaluaciones extends Controller
         $this->view->render('evaluacion/index');
     }
 
+    public function pruebaExamenDetalle(){
+        $idExamen = $_POST['idExamen'];
+        $evaluacion = $this->model->getExamenDetalleById($idExamen);
+        echo json_encode( $evaluacion, JSON_UNESCAPED_UNICODE);
+    }
 
 
     public function generatePDFByIdExamen()
@@ -67,12 +72,12 @@ class Evaluaciones extends Controller
 
         $pdf=new GeneratePDF();
 
-        if($evaluacion->areaempresa ==  $SEGURIDAD ){
+        if($evaluacion->areaEmpresa ==  $SEGURIDAD ){
 
             $urlPDF =  $pdf->generateAsistenciaPdf($evaluacion);
 
         }
-        if($evaluacion->areaempresa ==  $SGI ){
+        if($evaluacion->areaEmpresa ==  $SGI ){
            
             $urlPDF =  $pdf->generateAsistenciaEstandarPdf($evaluacion);
 

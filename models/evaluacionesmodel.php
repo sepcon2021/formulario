@@ -99,7 +99,7 @@ class EvaluacionesModel extends Model
                 $examen->fechaContinuacion=$row['fechaContinuacion'];
                 $examen->temarioA=$row['temarioA'];
                 $examen->temarioB=$row['temarioB'];
-                $examen->areaempresa = $row['idareaempresa'];
+                $examen->areaEmpresa = $row['idareaempresa'];
 
                 $examen->firmaFacilitador=$row['firmaFacilitador'];
 
