@@ -44,6 +44,41 @@ class RegistroModel extends Model
     }
 
 
+    public function insertCuestionario($registro)
+    {
+        try {
+
+            $conexion_bbdd = $this->db->connect();
+
+            $query = $conexion_bbdd->prepare('INSERT INTO cuestionario (idExamen,pregunta1,pregunta2,pregunta3,pregunta4,pregunta5,pregunta6,pregunta7,pregunta8)
+                                                        VALUES (:idExamen,:pregunta1,:pregunta2,:pregunta3,:pregunta4,:pregunta5,:pregunta6,:pregunta7,:pregunta8)');
+
+            $query->execute([
+                
+                'idExamen' => $registro['idExamen'],
+                'pregunta1' => $registro['pregunta1'],
+                'pregunta2' => $registro['pregunta2'],
+                'pregunta3' => $registro['pregunta3'],
+                'pregunta4' => $registro['pregunta4'],
+                'pregunta5' => $registro['pregunta5'],
+                'pregunta6' => $registro['pregunta6'],
+                'pregunta7' => $registro['pregunta7'],
+                'pregunta8' => $registro['pregunta8']
+
+            ]);
+
+            //EXTRAEMOS EL ID DEL INSERT QUE REALZIAMOS
+            // comentario 69 https://www.php.net/manual/en/pdo.lastinsertid.php
+
+            $last_insert_id = $conexion_bbdd->lastInsertId();
+
+            return $last_insert_id;
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 
 
 

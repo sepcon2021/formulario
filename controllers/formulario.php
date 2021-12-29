@@ -63,7 +63,7 @@ class Formulario extends Controller
         $detalle = "";
         $nota = 0;
         $estado = 1;
-        $idFirmaFacilitador = 1;
+        $idFirmaFacilitador = 23;
         $observacion = '';
         $finalizo = 1;
         $continuara = 0;
@@ -724,7 +724,7 @@ class Formulario extends Controller
         if( $respuestaExamen != 0){
             
             $this->insertPreguntaDuplicada($respuestaExamen,$respuesta);
-
+            $this->insertPuestoDuplicada($respuestaExamen,$respuesta);
         }
 
         echo $this->responseMessageContenido($respuestaExamen);
@@ -762,6 +762,9 @@ class Formulario extends Controller
         $temarioB = $examen->temarioB;
         $idareaempresa = $examen->idareaempresa;
 
+        $cantidadPregunta = 1000;
+        $aleatorio = 0;
+        $horas_capacitadas = 0;
         // INSERT EXAMEN
         $datos = compact(
             "idProyecto",
@@ -788,7 +791,10 @@ class Formulario extends Controller
             "fechaContinuacion",
             "temarioA",
             "temarioB",
-            "idareaempresa"
+            "idareaempresa",
+            "cantidadPregunta",
+            "aleatorio",
+            "horas_capacitadas"
         );
 
         return $this->model->insertExamen($datos);
@@ -815,6 +821,11 @@ class Formulario extends Controller
 
             $this->model->insertAlternativaBulk($idPregunta, $pregunta->alternativa);
         }
+    } 
+
+    public function insertPuestoDuplicada($idExamenDuplicado,$examen)
+    {
+        $this->model->insertPuestoBulk($idExamenDuplicado , $examen->examenPuestoTrabajo);
     } 
 
     public function insertSubPregunta(){

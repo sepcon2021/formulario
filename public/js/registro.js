@@ -6,7 +6,7 @@ $(function () {
 
     var listaPreguntas = [];
 
-    var listaEtiquetasValidacion =  [{nombre : "area",idtipopregunta : 1}];
+    var listaEtiquetasValidacion = [{ nombre: "area", idtipopregunta: 1 }];
 
     var notaAprobatoria = 0;
 
@@ -17,7 +17,7 @@ $(function () {
 
     var contenidoHtml = "";
 
-    $.post(RUTA + 'formulario/listaPreguntaByIdExamenRegistroLimit', { idExamen: IDEXAMEN ,idProyecto : CODIGO_PROYECTO}, function (data, textStatus, xhr) {
+    $.post(RUTA + 'formulario/listaPreguntaByIdExamenRegistroLimit', { idExamen: IDEXAMEN, idProyecto: CODIGO_PROYECTO }, function (data, textStatus, xhr) {
 
         if (data.status == 200) {
 
@@ -52,10 +52,10 @@ $(function () {
         contenido.examen.listaPreguntas.forEach(pregunta => {
 
             //htmlPregunta += contenidoPregunta(pregunta, index);
-            htmlPregunta += tipoAlternativaHtml(pregunta,index);
+            htmlPregunta += tipoAlternativaHtml(pregunta, index);
 
             //var data = ["pregunta" + pregunta.id , pregunta.idtipopregunta];
-            var data = {nombre : ("pregunta" + pregunta.id),idtipopregunta : pregunta.idtipopregunta };
+            var data = { nombre: ("pregunta" + pregunta.id), idtipopregunta: pregunta.idtipopregunta };
 
             //listaEtiquetasValidacion.push("pregunta" + pregunta.id);
             listaEtiquetasValidacion.push(data);
@@ -80,7 +80,7 @@ $(function () {
         <p> `+ contenido.examen.nombreProyecto + `</p>
         <br>
         <h5>Cliente</h5>
-        <p> `+ contenido.examen.cliente+ ` </p>
+        <p> `+ contenido.examen.cliente + ` </p>
         <br>
         <h5>Facilitador</h5>
         <p> `+ contenido.examen.facilitador + `</p>
@@ -88,24 +88,24 @@ $(function () {
 
     }
 
-    function tipoAlternativaHtml(pregunta,index) {
+    function tipoAlternativaHtml(pregunta, index) {
 
 
 
         var htmlAlternativa = ``;
 
-        if(pregunta.idtipopregunta == ALTERNATIVA){
+        if (pregunta.idtipopregunta == ALTERNATIVA) {
 
             htmlAlternativa = contenidoPregunta(pregunta, index);
 
         }
-        if(pregunta.idtipopregunta ==  RESPUESTA){
-            htmlAlternativa =  contenidoRespuestaHtml(pregunta,index);
+        if (pregunta.idtipopregunta == RESPUESTA) {
+            htmlAlternativa = contenidoRespuestaHtml(pregunta, index);
         }
         return htmlAlternativa;
     }
 
-    function contenidoRespuestaHtml(pregunta,index){
+    function contenidoRespuestaHtml(pregunta, index) {
         return `<div class="contenido" > 
         <div class="bordes">
         <h4>${index}. ${pregunta.nombre} </h4> 
@@ -238,11 +238,11 @@ $(function () {
 
 
     function listaArea(contenido) {
-        var htmlSelect =  ` `;
+        var htmlSelect = ` `;
         contenido.listaArea.forEach(area => {
             htmlSelect += `<br> 
-            <input type="radio" name="area" id="area`+area.id+`" value="`+area.id+`"> 
-            <label for="area`+area.id+`"> `+area.nombre+`</label> `;
+            <input type="radio" name="area" id="area`+ area.id + `" value="` + area.id + `"> 
+            <label for="area`+ area.id + `"> ` + area.nombre + `</label> `;
         });
         return htmlSelect;
     }
@@ -267,6 +267,8 @@ $(function () {
 
                 $("form").hide(0);
 
+
+
                 var firmaTrabajador = document.getElementById("firma");
 
                 $.post('public/inc/upload-sing.inc.php', { img: firmaTrabajador.toDataURL() }, function (data) {
@@ -277,6 +279,7 @@ $(function () {
 
 
                 });
+
             }
 
 
@@ -325,7 +328,7 @@ $(function () {
     function enviarFormulario(jsonFormulario, arrayRespuesta) {
 
 
-        $.post(RUTA + 'registro/verificarRegistro', { dniTrabajador: arrayRespuesta[0].dni, idExamen : IDEXAMEN}, function (data, textStatus, xhr) {
+        $.post(RUTA + 'registro/verificarRegistro', { dniTrabajador: arrayRespuesta[0].dni, idExamen: IDEXAMEN }, function (data, textStatus, xhr) {
 
 
             console.log('DATA');
@@ -338,24 +341,26 @@ $(function () {
                     //Desactivamos el load de carga
                     document.getElementsByClassName("load")[0].innerHTML = '';
 
-
                     if (data.status == 200) {
-
-
-
 
                         if (arrayRespuesta[0].nota > notaAprobatoria) {
 
-                            $(".respuesta").append(`<div class="contenido">  <div class="succesMessage"> <h3>El formulario fue enviado con éxito</h3> <br> <h3>Nota</h3> <br> <h1> ` + arrayRespuesta[0].nota + ` </h1> </div> </div>`)
+                            $(".respuesta").append(`<div class="contenido">  <div class="succesMessage"> <h3>El formulario fue enviado con éxito</h3> <br> <h3>Nota</h3> <br> <h1> ` + arrayRespuesta[0].nota + ` </h1> <br> <button type="submit" class="buttonInicio" id="btnInicio"> Volver a rendir examen </button> </div> </div>`)
+                            $(".respuesta").hide();
+                            regresarInicio()
+                            showFormularioSatisfaccion();
 
                         } else {
 
                             $(".respuesta").append(`<div class="contenido">  <div class="succesMessage"> <h3>El formulario fue enviado con éxito</h3> <br> <h3>Nota</h3> <br> <h1> ` + arrayRespuesta[0].nota + ` </h1>  <br> <button type="submit" class="buttonInicio" id="btnInicio"> Volver a rendir examen </button> </div> </div>`)
+                            $(".respuesta").hide();
                             regresarInicio()
+                            showFormularioSatisfaccion();
                         }
                     } else {
 
                         $(".respuesta").append(` <div class="contenido">  <div class="succesMessage"> <h3` + data.contenido + ` </h3> <br> <button type="submit"  class="buttonInicio" id="btnInicio"> Volver a rendir examen </button> </div> </div> `);
+                        $(".respuesta").hide();
                         regresarInicio()
 
                     }
@@ -373,21 +378,32 @@ $(function () {
 
                     if (data.status == 200) {
 
-
-
-
                         if (arrayRespuesta[0].nota > notaAprobatoria) {
 
-                            $(".respuesta").append(`<div class="contenido">  <div class="succesMessage"> <h3>El formulario fue enviado con éxito</h3> <br> <h3>Nota</h3> <br> <h1> ` + arrayRespuesta[0].nota + ` </h1> </div> </div>`)
+                            $(".respuesta").append(`<div class="contenido">  <div class="succesMessage"> <h3>El formulario fue enviado con éxito</h3> <br> <h3>Nota</h3> <br> <h1> ` + arrayRespuesta[0].nota + ` </h1> <br> <button type="submit" class="buttonInicio" id="btnInicio"> Volver a rendir examen </button> </div> </div>`)
+
+                            $(".respuesta").append()
+                            $(".respuesta").hide();
+
+                            regresarInicio();
+                            showFormularioSatisfaccion()
 
                         } else {
+
                             $(".respuesta").append(`<div class="contenido">  <div class="succesMessage"> <h3>El formulario fue enviado con éxito</h3> <br> <h3>Nota</h3> <br> <h1> ` + arrayRespuesta[0].nota + ` </h1>  <br> <button type="submit" class="buttonInicio" id="btnInicio"> Volver a rendir examen </button> </div> </div>`)
+                            $(".respuesta").hide();
                             regresarInicio()
+                            showFormularioSatisfaccion()
                         }
                     } else {
 
+
+
                         $(".respuesta").append(` <div class="contenido">  <div class="succesMessage"> <h3` + data.contenido + ` </h3> <br> <button type="submit"  class="buttonInicio" id="btnInicio"> Volver a rendir examen </button> </div> </div> `);
+                        $(".respuesta").hide();
                         regresarInicio()
+                        showFormularioSatisfaccion()
+
 
                     }
 
@@ -398,6 +414,56 @@ $(function () {
 
     }
 
+    function showFormularioSatisfaccion() {
+
+        $(".formSatisfaccion").show();
+
+
+        $(".formSatisfaccion").load("views/registro/cuestionario.html");
+
+
+
+        $("#btnFormSatisfaccion").on('click', function (event) {
+
+            $("#btnFormSatisfaccion").prop("disabled", false);
+            event.preventDefault();
+            $("#formSatisfaccion").trigger('submit');
+            return false;
+
+        });
+
+
+
+        //enviar formulario
+        $("#formSatisfaccion").on('submit', function (event) {
+            event.preventDefault();
+
+            var formulario = $(this).serialize() + '&idExamen=' + (IDEXAMEN.replace(' ', ''));
+
+
+            $(".formSatisfaccion").hide();
+
+            document.getElementsByClassName('load')[0].innerHTML = '<div class="loader"></div>';
+
+            $.post(RUTA + 'registro/insertCuestionario', formulario, function (data, textStatus, xhr) {
+
+                //Desactivamos el load de carga
+                document.getElementsByClassName("load")[0].innerHTML = '';
+
+                if (data.status == 200) {
+                    $(".respuesta").show();
+
+                } else {
+                    $(".respuesta").show();
+                }
+
+            }, "json");
+
+
+            return false;
+        });
+
+    }
 
 
     function regresarInicio() {
@@ -425,17 +491,17 @@ $(function () {
 
         listaPreguntas.forEach(pregunta => {
 
-            if(pregunta.idtipopregunta == ALTERNATIVA ){
+            if (pregunta.idtipopregunta == ALTERNATIVA) {
 
-                pregunta.alternativa.forEach(data =>{
-                
-                    if(data.respuesta == RESPUESTA_CORRECTA & data.id == listaRespuestas[INICIO_PREGUNTA]["value"] ){
-                        
+                pregunta.alternativa.forEach(data => {
+
+                    if (data.respuesta == RESPUESTA_CORRECTA & data.id == listaRespuestas[INICIO_PREGUNTA]["value"]) {
+
                         nota += pregunta.puntaje;
-    
+
                     }
                 });
-    
+
             }
 
             INICIO_PREGUNTA++;
@@ -506,30 +572,30 @@ $(function () {
 
         listaEtiquetasValidacion.forEach((value) => {
 
-            if(value.idtipopregunta == 1){
+            if (value.idtipopregunta == 1) {
 
                 $('input[type=radio][name=' + value.nombre + ']').change(function () {
                     setChangeErrorCheck(value.nombre)
                 });
-    
-    
-    
+
+
+
                 if (!validateCheck(value.nombre)) {
-    
+
                     validarFormulario = false;
                 }
             }
 
-            if(value.idtipopregunta == 2){
+            if (value.idtipopregunta == 2) {
 
-                $('#'+value.nombre).change(function () {
+                $('#' + value.nombre).change(function () {
                     setChangeErrorCheck(value.nombre)
                 });
-    
-    
-    
+
+
+
                 if (!validateCampo(value.nombre)) {
-    
+
                     validarFormulario = false;
                 }
 
@@ -576,14 +642,14 @@ $(function () {
     }
 
 
-    function validateCampo(etiqueta){
+    function validateCampo(etiqueta) {
 
         var resultForm = true;
 
 
         const campo = document.getElementById(etiqueta);
         const campoValue = campo.value.trim();
-    
+
         if (campoValue === '') {
             resultForm = false;
             setErrorForCheck(etiqueta);

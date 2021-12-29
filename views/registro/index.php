@@ -21,6 +21,8 @@
         
         <form method="POST" id="examen">
 
+
+
             <input type="hidden" name="nombreFirmaTrabajador" id="nombreFirmaTrabajador">
 
 
@@ -45,11 +47,16 @@
             </div>
 
             <div>
-                <button type="submit" id="btnRegister"> Registrar Documento </button>
+                <button type="submit" id="btnRegister"> Siguiente </button>
             </div>
 
         </form>
 
+        <form method="POST" id="formSatisfaccion" class="formSatisfaccion">
+
+        </form>
+
+        
         <div class="load">
         </div>
 

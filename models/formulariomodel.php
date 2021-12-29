@@ -1551,6 +1551,32 @@ class FormularioModel extends Model
         }
     }
 
+    public function insertPuestoBulk($idExamen , $listaAsignado)
+    {
+        try {
+
+            $conexion_bbdd = $this->db->connect();
+
+            $query = $conexion_bbdd->prepare('INSERT INTO examen_puesto_trabajo (id_examen,id_puesto_trabajo)
+            VALUES (:id_examen,:id_puesto_trabajo)');
+
+            foreach($listaAsignado as $asignado) {
+
+                $query->bindParam(':id_examen', $idExamen, PDO::PARAM_INT);
+                $query->bindParam(':id_puesto_trabajo',$asignado['id_puesto_trabajo'], PDO::PARAM_STR);
+                $query->execute();
+            
+            }
+
+
+            return true;
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
     public function getListExamenPuesto($idExamen)
     {
 
@@ -1559,7 +1585,9 @@ class FormularioModel extends Model
         try {
 
             $query = $this->db->connect()->prepare("SELECT 
-            puesto_trabajo.id AS id_puesto_trabajo,puesto_trabajo.nombre 
+            puesto_trabajo.id AS id_puesto_trabajo,
+            puesto_trabajo.nombre ,
+            examen_puesto_trabajo.id_examen 
             FROM examen_puesto_trabajo INNER JOIN puesto_trabajo ON  examen_puesto_trabajo.id_puesto_trabajo = puesto_trabajo.id
             WHERE examen_puesto_trabajo.id_examen = $idExamen
             ");
@@ -1570,7 +1598,8 @@ class FormularioModel extends Model
 
                 $examenPuestoTrabajo = array(
                     "id_puesto_trabajo" => $row['id_puesto_trabajo'],
-                    "nombre" => $row['nombre']
+                    "nombre" => $row['nombre'],
+                    "id_examen" => $row['id_examen']
                 );
 
                 array_push($listExamenPuestoTrabajo,$examenPuestoTrabajo);

@@ -7,7 +7,10 @@ form {
     width: 100%;
     max-width: 100%;
 }
-
+.formSatisfaccion {
+    width: 100%;
+    max-width: 100%;
+}
 body {
     background: #E9ECF4;
     color: #000;
@@ -21,12 +24,13 @@ body {
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1.5fr 1.5fr;
-    grid-template-rows: repeat(4, auto);
-    grid-template-areas: "header header " "form form" "load load" "respuesta respuesta";
+    grid-template-rows: repeat(5, auto);
+    grid-template-areas: "header header " "form form" "formSatisfaccion formSatisfaccion" "load load" "respuesta respuesta";
 }
 
 .contenedor>div,
 .contenedor form,
+.contenedor .formSatisfaccion,
 .contenedor .header,
 .contenedor .load,
 .contenedor .respuesta {
@@ -41,6 +45,10 @@ body {
 
 .contenedor form {
     grid-area: form;
+}
+
+.contenedor .formSatisfaccion {
+    grid-area: formSatisfaccion;
 }
 
 .contenedor .load {
