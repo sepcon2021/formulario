@@ -135,14 +135,14 @@ class Registro extends Controller
 
         $idExamen  = $_POST['idExamen'];
 
-        $pregunta1  = $_POST['pregunta1'];
-        $pregunta2  = $_POST['pregunta2'];
-        $pregunta3  = $_POST['pregunta3'];
-        $pregunta4  = $_POST['pregunta4'];
-        $pregunta5  = $_POST['pregunta5'];
-        $pregunta6  = $_POST['pregunta6'];
-        $pregunta7  = $_POST['pregunta7'];
-        $pregunta8  = $_POST['pregunta8'];
+        $pregunta1  = isset($_POST['pregunta1']) ? $_POST['pregunta1'] : '0';
+        $pregunta2  = isset($_POST['pregunta2']) ? $_POST['pregunta2'] : '0';
+        $pregunta3  = isset($_POST['pregunta3']) ? $_POST['pregunta3'] : '0';
+        $pregunta4  = isset($_POST['pregunta4']) ? $_POST['pregunta4'] : '0';
+        $pregunta5  = isset($_POST['pregunta5']) ? $_POST['pregunta5'] : '0';
+        $pregunta6  = isset($_POST['pregunta6']) ? $_POST['pregunta6'] : '0';
+        $pregunta7  = isset($_POST['pregunta7']) ? $_POST['pregunta7'] : '0';
+        $pregunta8  = isset($_POST['pregunta8']) ? $_POST['pregunta8'] : '0';
 
         $datos = compact("idExamen","pregunta1","pregunta2","pregunta3","pregunta4","pregunta5","pregunta6","pregunta7","pregunta8");
 
